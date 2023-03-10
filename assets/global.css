@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title-name-card {
+    font-size: 16px;
+}
+
+.price-card, .count-card, .rate-card {
+    font-size: 14px;
+}
+
+body {
+    background-color: #f8f7f5;
+    padding: 0;
+    margin: 0;
+}
