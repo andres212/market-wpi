@@ -22,6 +22,20 @@ export default {
   // Loading this.$nuxt()
   loading: '~/components/loader/loader.vue',
 
+  toast: {
+    position: 'bottom-right',
+    duration: 3000,
+    register: [
+      {
+        name: 'my-error',
+        message: 'Oops...Something went wrong',
+        options: {
+          type: 'error'
+        }
+      }
+    ]
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/global.css'
@@ -36,12 +50,14 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxtjs/tailwindcss'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxtjs/toast'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

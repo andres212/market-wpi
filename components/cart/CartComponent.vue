@@ -3,7 +3,7 @@
     <NavBarComponent />
     <div class="container-web-checkout">
       <div class="content-items-in-cart">
-        <div class="container-items">
+        <div v-if="productsInCart.length > 0" class="container-items">
           <div
             v-for="item in productsInCart" :key="item.item.id"
             class="content-item-in-cart"
@@ -21,6 +21,13 @@
               <p class="info-count">{{ item.count }}</p>
               <button class="btn-action-cart" v-on:click="removeCountToItem(item)">-</button>
             </div>
+          </div>
+        </div>
+        <div v-if="productsInCart.length <= 0" class="container-items">
+          <div class="cart-emp">
+            <p>
+              Carrito vacio 😔
+            </p>
           </div>
         </div>
         <div class="footer-info-cart">
@@ -47,8 +54,10 @@ export default {
       productsInCart: []
     }
   },
-  created: function () {
+  mounted: function() {
     this.getItemsCart();
+  },
+  created: function () {
   },
   methods: {
     cutTitle(title = '') {
@@ -61,14 +70,32 @@ export default {
       this.productsInCart = getItemsFromCart();
     },
     addCountToItem(item) {
-      addItemToCart(item.item);
-      this.getItemsCart()
-      this.getTotalCart();
+      this.$root.$loading.start()
+      setTimeout(() => {
+        const response = addItemToCart(item.item);
+        if (response) {
+          this.$toast.success('Producto agregado')
+        } else {
+          this.$toast.error('Error en agregar producto')
+        }
+        this.getItemsCart()
+        this.getTotalCart();
+        this.$root.$loading.finish()
+      }, 1500);
     },
     removeCountToItem(item) {
-      removeItemToCart(item);
-      this.getItemsCart()
-      this.getTotalCart();
+      this.$root.$loading.start()
+      setTimeout(() => {
+        const response = removeItemToCart(item);
+        if (response) {
+          this.$toast.success('Producto eliminado')
+        } else {
+          this.$toast.error('Error en remover producto')
+        }
+        this.getItemsCart()
+        this.getTotalCart();
+        this.$root.$loading.finish()
+      }, 1500);
     }
   }
 }

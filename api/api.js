@@ -33,6 +33,7 @@ function addItemToCart(item) {
                 return item;
             })
             localStorage.setItem('cart', JSON.stringify(cart));
+            return true;
         } else {
             const cart = JSON.parse(cartStorage);
             const newItem = {
@@ -44,7 +45,7 @@ function addItemToCart(item) {
             }
             cart.push(newItem);
             localStorage.setItem('cart', JSON.stringify(cart));
-            console.log(cart, 'cart update')
+            return true;
         }
     } else {
         let cart = [];
@@ -57,6 +58,7 @@ function addItemToCart(item) {
         }
         cart.push(newItem);
         localStorage.setItem('cart', JSON.stringify(cart))
+        return true;
     }
 }
 
@@ -87,12 +89,17 @@ function removeItemToCart(item) {
                 return itemCart
             });
             if (index >= 0) {
-                cart = cart.slice(0, index);
+                if (index === 0) {
+                    cart.pop()
+                } else {
+                    cart = cart.slice(0, index);
+                }
             }
-            console.log(cart)
             localStorage.setItem('cart', JSON.stringify(cart));
+            return true;
         }
     }
+    return false;
 }
 
 /**
@@ -114,7 +121,9 @@ function getTotal() {
         let cart = [];
         cart = JSON.parse(cartStorage);
         cart.map(item => {
-            total+= item.total;
+            if (item) {
+                total+= item.total;
+            }
         });
         return parseInt(total)
     }

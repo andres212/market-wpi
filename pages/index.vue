@@ -21,7 +21,6 @@ export default {
   },
   data: () => {
     return {
-      dato: 'Hola desde VUejs',
       productsRender: []
     }
   },
@@ -34,11 +33,11 @@ export default {
         const resProducts = await getProducts();
         if (resProducts) {
           this.productsRender = resProducts;
+          this.$toast.success('Productos Cargados')
         }
       } catch (error) {
         console.log(error);
-      } finally {
-        this.$nuxt.$loading.finish()
+        this.$toast.error('Error en carga de productos')
       }
     }
   }

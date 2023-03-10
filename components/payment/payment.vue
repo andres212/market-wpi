@@ -2,7 +2,12 @@
   <div class="container-payment">
       <div>
         <h4 class="text-payment">Pago</h4>
-        <form action="https://checkout.wompi.co/p/" method="GET">
+        <form
+          action="https://checkout.wompi.co/p/"
+          method="GET"
+          @submit="checkForm"
+          novalidate="true"
+        >
           <div class="container-inputs-pay">
             <input type="hidden" name="public-key" :value="pub_test" />
             <input type="hidden" name="currency" :value="currency" />
@@ -46,6 +51,20 @@ export default {
     },
     setAmount() {
       this.amount = getTotal() * 1000;
+    },
+    checkForm: function(e) {
+      let cart = localStorage.getItem('cart');
+      cart = JSON.parse(cart)
+      if (cart) {
+        if (cart.length <= 0) {
+          this.$toast.info('Agregar un producto al carrito para continuar con la compra')
+        } else {
+          return true;
+        }
+      } else {
+        this.$toast.info('Agregar un producto al carrito para continuar con la compra')
+      }
+      e.preventDefault();
     }
   }
 }

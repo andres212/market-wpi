@@ -36,7 +36,16 @@ export default {
     },
     methods: {
       addToCart() {
-        addItemToCart(this.item);
+        this.$root.$loading.start()
+        setTimeout(() => {
+          const response = addItemToCart(this.item);
+          if (response) {
+            this.$toast.success('Producto agregado')
+          } else {
+            this.$toast.error('Error en agregar producto')
+          }
+          this.$root.$loading.finish()
+        }, 1500);
       },
       cutTitle(title) {
         return splitTitle(title);
