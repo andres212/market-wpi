@@ -17,6 +17,10 @@ $ npm run start
 $ npm run generate
 ```
 
+Running application [here](https://store-with-wpi.surge.sh/)
+
+Deploy using [surge](https://surge.sh/) tool
+
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
 ## Special Directories
